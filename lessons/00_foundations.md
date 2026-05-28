@@ -91,3 +91,14 @@ Task 3:
 - What does `torch.randn_like(x)` do?
 - Why do we need a loss function?
 - What does `optimizer.step()` change?
+
+## Required Bridge Before Lesson 01
+
+Before continuing into diffusion notation, complete these in order:
+
+```text
+lessons/00a_statistics_for_diffusion.md
+lessons/00b_mean_variance_and_scaling.md
+```
+
+The first lesson teaches mean, median, mode, variance, standard deviation, and Gaussian noise. The second lesson explains why square roots appear when scaling noise.

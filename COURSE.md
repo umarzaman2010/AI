@@ -72,12 +72,15 @@ Read papers slowly. Your first pass should answer: what problem does this solve,
 Read:
 
 - `lessons/00_foundations.md`
+- `lessons/00a_statistics_for_diffusion.md`
+- `lessons/00b_mean_variance_and_scaling.md`
 - `notes/math_and_probability.md`
 - `notes/pytorch_basics.md`
 
 Code:
 
 - Tensor operations
+- Mean, median, mode, variance, and standard deviation
 - Gaussian noise generation
 - Plot normal distributions
 - Add noise to a simple image tensor
@@ -224,4 +227,3 @@ You understand diffusion models when you can explain:
 - Why sampling is slower than a normal forward pass.
 - What classifier-free guidance changes.
 - Why latent diffusion is faster than pixel diffusion.
-

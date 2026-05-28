@@ -36,10 +36,11 @@ def main() -> None:
     alpha_bars = schedule["alpha_bars"]
 
     print("timesteps:", timesteps)
-    print("first beta:", betas[0].item())
-    print("last beta:", betas[-1].item())
-    print("first alpha_bar:", alpha_bars[0].item())
-    print("last alpha_bar:", alpha_bars[-1].item())
+    print("A schedule is the planned noise amount at each step.")
+    print("step 1 beta:", betas[0].item())
+    print("step 1000 beta:", betas[-1].item())
+    print("signal retained after step 1 (alpha_bar):", alpha_bars[0].item())
+    print("signal retained after step 1000 (alpha_bar):", alpha_bars[-1].item())
 
     fig, axes = plt.subplots(1, 3, figsize=(12, 3))
 
@@ -63,4 +64,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

@@ -29,9 +29,12 @@ def make_simple_image(size: int = 28) -> torch.Tensor:
     return image
 
 
-def q_sample(x_0: torch.Tensor, timestep: int, alpha_bars: torch.Tensor) -> torch.Tensor:
+def q_sample(x_0: torch.Tensor, step: int, alpha_bars: torch.Tensor) -> torch.Tensor:
+    if step == 0:
+        return x_0
+
     noise = torch.randn_like(x_0)
-    alpha_bar_t = alpha_bars[timestep]
+    alpha_bar_t = alpha_bars[step - 1]
 
     clean_weight = torch.sqrt(alpha_bar_t)
     noise_weight = torch.sqrt(1.0 - alpha_bar_t)
@@ -55,22 +58,26 @@ def main() -> None:
     alpha_bars = schedule["alpha_bars"]
     x_0 = make_simple_image()
 
-    chosen_timesteps = [0, 50, 100, 300, 600, 999]
+    chosen_steps = [0, 1, 50, 100, 300, 600, 1000]
 
-    fig, axes = plt.subplots(1, len(chosen_timesteps), figsize=(12, 2.4))
+    fig, axes = plt.subplots(1, len(chosen_steps), figsize=(14, 2.4))
 
-    for ax, timestep in zip(axes, chosen_timesteps):
-        x_t = q_sample(x_0, timestep, alpha_bars)
+    for ax, step in zip(axes, chosen_steps):
+        x_t = q_sample(x_0, step, alpha_bars)
         ax.imshow(x_t.squeeze().numpy(), cmap="gray", vmin=-1, vmax=1)
-        ax.set_title(f"t={timestep}")
+        ax.set_title(f"step={step}")
         ax.axis("off")
 
-        print(
-            f"t={timestep:03d} "
-            f"alpha_bar={alpha_bars[timestep].item():.6f} "
-            f"clean_weight={torch.sqrt(alpha_bars[timestep]).item():.6f} "
-            f"noise_weight={torch.sqrt(1.0 - alpha_bars[timestep]).item():.6f}"
-        )
+        if step == 0:
+            print("step=000 clean starting image: clean_weight=1.000000 noise_weight=0.000000")
+        else:
+            alpha_bar_t = alpha_bars[step - 1]
+            print(
+                f"step={step:04d} "
+                f"alpha_bar={alpha_bar_t.item():.6f} "
+                f"clean_weight={torch.sqrt(alpha_bar_t).item():.6f} "
+                f"noise_weight={torch.sqrt(1.0 - alpha_bar_t).item():.6f}"
+            )
 
     fig.tight_layout()
     save_path = output_dir / "02_forward_diffusion_visual.png"
@@ -80,4 +87,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

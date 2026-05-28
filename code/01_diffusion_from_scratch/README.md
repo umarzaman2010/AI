@@ -3,6 +3,7 @@
 Run these scripts from the workspace root:
 
 ```powershell
+python code/01_diffusion_from_scratch/00_why_alpha_bar_multiplies.py
 python code/01_diffusion_from_scratch/01_noise_schedule.py
 python code/01_diffusion_from_scratch/02_forward_diffusion_visual.py
 ```
@@ -20,3 +21,6 @@ outputs/forward_diffusion/
 - `alpha_bar` is the cumulative amount of original image signal left.
 - A noisy image `x_t` is a mixture of the clean image and Gaussian noise.
 
+Begin with `00_why_alpha_bar_multiplies.py`. It uses deliberately large
+numbers so the cumulative-product idea is visible before you work with a
+realistic 1000-step schedule.
